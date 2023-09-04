@@ -41,8 +41,6 @@ export class UsersService {
     const user = await this.userRepo.findOne({
       where: { email: loginUserDto.email },
     });
-
-    console.log(user);
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
     }
@@ -50,6 +48,7 @@ export class UsersService {
     if (!isMatch) {
       throw new UnauthorizedException('Invalid credentials');
     }
+
     const payload = { username: user.username, id: user.id };
     return {
       accessToken: this.jwtService.sign(payload, {
