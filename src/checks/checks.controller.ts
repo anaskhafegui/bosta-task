@@ -12,15 +12,20 @@ import { ChecksService } from './checks.service';
 import { CreateCheckDto } from './dto/create-check.dto';
 import { UpdateCheckDto } from './dto/update-check.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth-guard';
+import { MonitorService } from 'src/monitor/monitor.service';
 
 @Controller('checks')
 @UseGuards(JwtAuthGuard)
 export class ChecksController {
-  constructor(private readonly checksService: ChecksService) {}
+  constructor(
+    private readonly checksService: ChecksService,
+    private readonly monitorService: MonitorService,
+  ) {}
 
   @Post('/create')
   create(@Body() createCheckDto: CreateCheckDto) {
-    return this.checksService.create(createCheckDto);
+    this.checksService.create(createCheckDto);
+    return this.monitorService.startPollig(createCheckDto);
   }
 
   @Get('/findall')

@@ -6,6 +6,7 @@ import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
 import { Check } from './checks/entities/check.entity';
 import { ChecksModule } from './checks/checks.module';
+import { ReportsModule } from './reports/reports.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { ChecksModule } from './checks/checks.module';
     }),
     UsersModule,
     ChecksModule,
+    ReportsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
